@@ -6,23 +6,44 @@ La [política de este servicio web](https://github.com/MrDave1999/ws-policy-exam
 
 ## Instalación
 
-Para probar esta implementación se necesita tener:
-
-- Apache HTTP
-- PHP 8.0
-  - Las extensiones `php8.0-mysqli` y `php8.0-xml` deben estar habilitadas.
-- Biblioteca NuSOAP
-- MySQL Server 8.0
-
-Para importar `policy_example.sql` necesita primero crear la base de datos:
-```sql
-CREATE DATABASE policy_example;
+**1.** Clone el repositorio:
 ```
-Luego ejecute este comando (reemplace en `username` por el nombre de usuario que use, por ejemplo: `root`):
-```bash
-mysql -u username -p policy_example < policy_example.sql 
+git clone https://github.com/MrDave1999/ws-policy-example.git
+```
+**2.** Cambie de directorio:
+```
+cd ws-policy-example
+```
+**3.** Instale las dependencias del proyecto:
+```
+docker run --rm -it -v $PWD:/app composer install
+```
+**4.** Copie el contenido de `.env.example` en `.env`:
+```
+cp .env.example .env
+```
+**Nota:** Si en Windows no funciona el comando `cp`, use `xcopy`.
+
+**5.** Construya la imagen e inicie los servicios:
+```
+docker-compose up --build -d
+```
+**6.** Acceda a la aplicación de esta forma:
+```
+http://localhost:8080/
 ```
 
-**Nota:** No olvide modificar el archivo `config.php` de acuerdo a sus necesidades.
+## Prueba
 
-
+Puedes usar el **cliente de prueba** para comprobar si todo está funcionando:
+```
+docker run --rm \
+    --network ws-policy-example \
+    -w /app \
+    -v $PWD:/app \
+    -e USERNAME=admin \
+    -e PASSWORD=1234 \
+    -e CRYPTO_ALGORITHM=sha1 \
+    php:8.0-apache \
+    php soapclient.php
+```
