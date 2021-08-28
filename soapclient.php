@@ -1,7 +1,8 @@
 <?php 
-require_once('./lib/nusoap.php');
+require_once 'vendor/autoload.php';
+
 // Esta es la dirección URL de su servidor de servicios web WSDL
-$wsdl = "http://localhost/policy-example/soapserver.php?wsdl";
+$wsdl = 'http://app?wsdl';
 
 // Crear objeto cliente
 $client = new nusoap_client($wsdl, 'wsdl');
@@ -15,9 +16,9 @@ if ($err)
 
 // Indicamos los parámetros de la función
 $params = [
-	'username' 	=> 	'admin', 
-	'password' 	=> 	'dsr1234$$12', 
-	'crypto_algorithm' => 'sha1'
+	'username' 	=> 	$_ENV['USERNAME'], 
+	'password' 	=> 	$_ENV['PASSWORD'], 
+	'crypto_algorithm' => $_ENV['CRYPTO_ALGORITHM']
 ];
 
 // Llama al método "create_user_account"
