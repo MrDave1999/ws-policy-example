@@ -37,13 +37,5 @@ http://localhost:8080/
 
 Puedes usar el **cliente de prueba** para comprobar si todo está funcionando:
 ```
-docker run --rm \
-    --network ws-policy-example \
-    -w /app \
-    -v $PWD:/app \
-    -e USERNAME=admin \
-    -e PASSWORD=1234 \
-    -e CRYPTO_ALGORITHM=sha1 \
-    php:8.0-apache \
-    php soapclient.php
+docker exec app php soapclient.php
 ```
