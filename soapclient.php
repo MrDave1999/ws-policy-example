@@ -1,6 +1,10 @@
 <?php 
 require_once 'vendor/autoload.php';
-
+if(count($argv) === 3)
+{
+   echo 'Error: You must pass three argument to the script!'. "\n";
+   exit();
+}
 // Esta es la dirección URL de su servidor de servicios web WSDL
 $wsdl = $_ENV['BASE_URI'];
 
@@ -16,9 +20,9 @@ if ($err)
 
 // Indicamos los parámetros de la función
 $params = [
-	'username' 	=> 	$_ENV['USERNAME'], 
-	'password' 	=> 	$_ENV['PASSWORD'], 
-	'crypto_algorithm' => $_ENV['CRYPTO_ALGORITHM']
+	'username' 	=> 	$argv[1], 
+	'password' 	=> 	$argv[2], 
+	'crypto_algorithm' => $argv[3]
 ];
 
 // Llama al método "create_user_account"
