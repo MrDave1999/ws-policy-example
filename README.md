@@ -37,5 +37,5 @@ http://localhost:8080/
 
 Puedes usar el **cliente de prueba** para comprobar si todo está funcionando:
 ```
-docker exec app php soapclient.php
+docker exec app php soapclient.php admin 1234 sha1
 ```
